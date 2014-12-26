@@ -39,6 +39,7 @@ body {
 	display: inline;
 }
 
+
 .typemenu a {
     background: url("../images/igry-nav.png") no-repeat scroll 6px 0 rgba(0, 0, 0, 0);
     color: #000;
@@ -54,6 +55,7 @@ body {
 .typemenu .typmenu1 a{ 
     background-position: 6px -32px;
 }
+
 
 #mainmenu ul li a {
 	text-decoration: none;
@@ -273,3 +275,4 @@ ul.yiiPager li.selected a:link {
 #header {
     
 }
+

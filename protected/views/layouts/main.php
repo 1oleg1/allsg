@@ -17,7 +17,9 @@
 <div id="logo">
 <?php 
 $img = CHtml::image(Yii::app()->baseUrl.'/images/header.png', Yii::app()->name);
+
 //echo CHtml::link($img, Yii::app()->homeUrl);
+
 ?></div>
 </div><!-- header -->
 
@@ -45,7 +47,9 @@ $img = CHtml::image(Yii::app()->baseUrl.'/images/header.png', Yii::app()->name);
 </div><!-- main_block -->
 
 <div id="sidebar" class="grid_3">
+
 <div class="menu typemenu">
+
 <?php $this->widget('application.components.TypesMenu'); ?>
 </div><!-- menu -->
 
@@ -65,9 +69,11 @@ $img = CHtml::image(Yii::app()->baseUrl.'/images/header.png', Yii::app()->name);
 
 <div id="footer" class="grid_12">
 <div>
+
 Copyright &copy; 2014 by <a href="http://allsupergames.net">allsupergames.net</a><br/>
 All Rights Reserved.<br/>
 <?php // echo Yii::powered(); ?>
+
 <?php
 //показываем суммарные данные по использованию ресурсов
 $memory = round(Yii::getLogger()->memoryUsage/1024/1024, 3);

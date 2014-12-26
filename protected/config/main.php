@@ -65,6 +65,7 @@ return array(
 				),
 			),
 		),*/
+
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
