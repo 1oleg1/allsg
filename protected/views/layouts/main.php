@@ -3,10 +3,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="language" content="en" />
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/reset.css'); ?>
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/text.css'); ?>
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/960.css'); ?>
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/main.css'); ?>
+<?php Yii::app()->bootstrap->register(); ?>
 <title><?php echo $this->pageTitle; ?></title>
 </head>
 
@@ -31,6 +36,23 @@ $img = CHtml::image(Yii::app()->baseUrl.'/images/header.png', Yii::app()->name);
 
 <div id="content_container" class="grid_12">
 
+
+<div id="sidebar" class="grid_3">
+<div class="menu typemenu">
+<?php $this->widget('application.components.TypesMenu'); ?>
+</div><!-- menu -->
+<div class="menu">
+<?php $this->widget('application.components.RandomScreenshots'
+	, array('count'=>2)); ?>
+</div><!-- menu -->
+<div class="menu">
+<?php $this->widget('application.components.ArchiveMenu'); ?>
+</div><!-- menu -->
+</div><!-- sidebar -->
+
+
+
+
 <div id="main_block" class="grid_9 alpha omega">
 
 <div id="top_games" class="grid_9">
@@ -46,34 +68,14 @@ $img = CHtml::image(Yii::app()->baseUrl.'/images/header.png', Yii::app()->name);
 
 </div><!-- main_block -->
 
-<div id="sidebar" class="grid_3">
 
-<div class="menu typemenu">
-
-<?php $this->widget('application.components.TypesMenu'); ?>
-</div><!-- menu -->
-
-<div class="menu">
-<?php $this->widget('application.components.RandomScreenshots'
-	, array('count'=>2)); ?>
-</div><!-- menu -->
-
-<div class="menu">
-<?php $this->widget('application.components.ArchiveMenu'); ?>
-</div><!-- menu -->
-
-</div><!-- sidebar -->
 
 <div class="clear"></div>
 </div><!-- content_container -->
 
 <div id="footer" class="grid_12">
 <div>
-
 Copyright &copy; 2014 by <a href="http://allsupergames.net">allsupergames.net</a><br/>
-All Rights Reserved.<br/>
-<?php // echo Yii::powered(); ?>
-
 <?php
 //показываем суммарные данные по использованию ресурсов
 $memory = round(Yii::getLogger()->memoryUsage/1024/1024, 3);

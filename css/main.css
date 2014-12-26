@@ -52,10 +52,110 @@ body {
     width: 166px;    
 }
 
+.typemenu a:hover {
+    background-color: #6dc4f6;
+    color: #fff;
+    }
+
 .typemenu .typmenu1 a{ 
+    background-position: 6px -896px;    
+}
+
+.typemenu .typmenu2 a{ 
+    background-position: 6px -128px; 
+}
+
+.typemenu .typmenu3 a{ 
     background-position: 6px -32px;
 }
 
+.typemenu .typmenu4 a{ 
+    background-position: 6px -1600px; 
+}
+
+.typemenu .typmenu5 a{ 
+    background-position: 6px -96px;
+}
+
+.typemenu .typmenu6 a{ 
+    background-position: 6px -1152px;
+}
+
+.typemenu .typmenu7 a{ 
+    background-position: 6px -352px; 
+}
+
+.typemenu .typmenu8 a{ 
+ 
+}
+
+.typemenu .typmenu9 a{ 
+    background-position: 6px -1536px;
+}
+
+.typemenu .typmenu10 a{ 
+    background-position: 6px -1568px;
+}
+
+.typemenu .typmenu11 a{ 
+    background-position: 6px -480px; 
+}
+
+.typemenu .typmenu12 a{ 
+    background-position: 6px -512px; 
+}
+
+.typemenu .typmenu13 a{ 
+    background-position: 6px -544px; 
+}
+
+.typemenu .typmenu14 a{ 
+    background-position: 6px -576px; 
+}
+
+.typemenu .typmenu15 a{ 
+    background-position: 6px -800px; 
+}
+
+.typemenu .typmenu16 a{ 
+    background-position: 6px -1184px; 
+}
+
+.typemenu .typmenu17 a{ 
+    background-position: 6px -704px; 
+}
+
+.typemenu .typmenu18 a{ 
+    background-position: 6px -672px; 
+}
+
+.typemenu .typmenu32 a{ 
+    background-position: 6px -448px; 
+}
+
+.typemenu .typmenu35 a{ 
+    background-position: 6px -832px; 
+}
+
+.typemenu .typmenu40 a{ 
+    background-position: 6px -384px; 
+}
+
+.typemenu .typmenu45 a{ 
+    background-position: 6px -1408px; 
+}
+
+.typemenu .typmenu50 a{ 
+    background-position: 6px -1696px; 
+}
+
+.typemenu .typmenu64 a{ 
+ 
+}
+
+.typemenu li {
+    margin-left: 0px
+    }
 
 #mainmenu ul li a {
 	text-decoration: none;
@@ -70,6 +170,8 @@ body {
 
 #main_block {
 	background-color: #dbeaef;
+    float: left;
+    position: relative;
 }
 
 #top_games, #content {
@@ -218,7 +320,8 @@ div.game_full div#screenshots a img {
 }
 
 #sidebar div.menu ul {
-	list-style-image: url('../images/bullet.png');
+	___list-style-image: url('../images/bullet.png');
+	list-style: none;    
 }
 
 #sidebar div.menu ul li {
