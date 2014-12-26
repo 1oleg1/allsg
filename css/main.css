@@ -7,20 +7,20 @@ body {
 }
 
 #content_container {
-	background-image: url('../images/main_bg.png');
+	___background-image: url('../images/main_bg.png');
 }
 
 #main_top {
-	background-image: url('../images/main_top_bottom.png');
-	background-repeat: no-repeat;
-	height: 20px;
+	___background-image: url('../images/main_top_bottom.png');
+	___background-repeat: no-repeat;
+	___height: 20px;
 }
 
 #main_bottom {
-	background-image: url('../images/main_top_bottom.png');
-	background-repeat: no-repeat;
-	height: 20px;
-	background-position: 0 -20px;
+	___background-image: url('../images/main_top_bottom.png');
+	___background-repeat: no-repeat;
+	___height: 20px;
+	___background-position: 0 -20px;
 }
 
 #mainmenu {
@@ -37,6 +37,22 @@ body {
 
 #mainmenu ul li {
 	display: inline;
+}
+
+.typemenu a {
+    background: url("../images/igry-nav.png") no-repeat scroll 6px 0 rgba(0, 0, 0, 0);
+    color: #000;
+    display: block;
+    font-size: 12px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 10px 0 44px;
+    text-decoration: none;
+    width: 166px;    
+}
+
+.typemenu .typmenu1 a{ 
+    background-position: 6px -32px;
 }
 
 #mainmenu ul li a {

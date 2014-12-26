@@ -55,7 +55,7 @@ return array(
 			'class'=>'system.caching.CFileCache',
 		),
 		//настройки лога событий
-		'log'=>array(
+		/*'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
 				array(
@@ -64,7 +64,7 @@ return array(
 					'levels'=>'trace, info, profile',
 				),
 			),
-		),
+		),*/
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
