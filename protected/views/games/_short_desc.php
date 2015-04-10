@@ -2,7 +2,7 @@
 
 <div class="game_short grid_4">
 <?php
-echo CHtml::image($game->g_small_pic, $game->g_name);
+echo CHtml::image($game->g_medium_pic, $game->g_name);
 ?>
 <h2><?php
 echo CHtml::link($game->g_name

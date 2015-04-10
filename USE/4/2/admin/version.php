@@ -1,0 +1,3 @@
+<?php
+$onarcade_version = '';
+?>

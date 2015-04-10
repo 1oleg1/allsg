@@ -34,7 +34,7 @@ class Types extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('t_name','length','max'=>45),
+			array('t_name','length','max'=>250),
 			array('t_id', 'required'),
 			array('t_id', 'numerical', 'integerOnly'=>true),
 		);

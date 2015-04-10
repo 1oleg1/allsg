@@ -6,20 +6,22 @@ class Games extends CActiveRecord
 	 * The followings are the available columns in table 'ygs_games':
 	 * @var integer $g_id
 	 * @var integer $g_rate
-	 * @var string $g_name_url
+	 * @var integer $filename
+         * @var integer $ext 
 	 * @var integer $g_type
-	 * @var string $g_added
 	 * @var integer $g_size
 	 * @var string $g_name
 	 * @var string $g_medium_pic
-	 * @var string $g_small_pic
-	 * @var string $g_download_link
 	 * @var string $g_shortdescr
 	 * @var string $g_fulldescr
 	 * @var string $g_publish_date
 	 * @var integer $g_state
+	 * @var integer $width
+	 * @var integer $height
 	 */
-	
+	public $icon; // атрибут для хранения загружаемой картинки 
+        public $filename2; // атрибут для хранения загружаемой картинки 
+	public $del_img; // атрибут для удаления уже загруженной картинки
 	//эти два свойства используются при импорте игр
 	public $g_screenshots = array();
 	public $g_types = array();
@@ -54,13 +56,19 @@ class Games extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('g_name_url','length','max'=>255),
-			array('g_name','length','max'=>255),
+			array('g_shortdescr,g_shortdescr_en,g_fulldescr,g_fulldescr_en','safe'),
+                        array('del_img', 'boolean'),
+			array('filename,width,height,g_name,g_name_en','length','max'=>255),
 			array('g_medium_pic','length','max'=>255),
-			array('g_small_pic','length','max'=>255),
-			array('g_download_link','length','max'=>255),
-			array('g_id, g_rate, g_name_url, g_type, g_added, g_size, g_name, g_medium_pic, g_small_pic, g_download_link, g_state', 'required'),
-			array('g_id, g_rate, g_type, g_size, g_state', 'numerical', 'integerOnly'=>true),
+                        array('filename2', 'file'),                    
+                        array('icon', 'file',
+                            'types'=>'jpg, jpeg, gif, png',
+//                            'maxSize'=>1024 * 1024 * 20, // 20 MB
+                            'allowEmpty'=>'true',
+//                            'tooLarge'=>'Файл весит больше 20 MB. Пожалуйста, загрузите файл меньшего размера.',
+                        ),
+			array('g_type, g_name, g_name_en, g_medium_pic, g_state', 'required'),
+			array('ext, width, height, g_id, g_rate, g_type, g_size, g_state', 'numerical', 'integerOnly'=>true),
 		);
 	}
 
@@ -83,17 +91,22 @@ class Games extends CActiveRecord
 	{
 		return array(
 			'g_id' => 'ID',
+                        'ext' => 'Расширение',
+                        'filename' => 'Название файла',
 			'g_rate' => 'Рейтинг',
-			'g_name_url' => 'Короткая ссылка',
 			'g_type' => 'Жанр',
-			'g_added' => 'Дата добавления',
+                        'width' => 'Ширина',
+                        'height' => 'Высота',
 			'g_size' => 'Размер (кБ)',
-			'g_name' => 'Название',
-			'g_medium_pic' => 'Картинка (средний размер)',
-			'g_small_pic' => 'Миниатюра',
-			'g_download_link' => 'Ссылка',
-			'g_shortdescr' => 'Короткое описание',
-			'g_fulldescr' => 'Полное описание',
+			'g_name' => 'Название (RU)',
+			'g_name_en' => 'Название (EN)',            
+			'g_medium_pic' => 'Картинка',
+			'g_shortdescr' => 'SEO Description (RU) (не более 160 символов)',
+			'g_shortdescr_en' => 'SEO Description (EN) (не более 160 символов)',
+			'g_fulldescr' => 'Полное описание (RU)',
+			'g_fulldescr_en' => 'Полное описание (EN)',
+                        'icon' => 'Скриншот к игре',
+			'del_img'=>'Удалить скриншот?',
 			'g_publish_date' => 'Дата публикации',
 			'g_state' => 'Статус',
 		);
@@ -119,15 +132,15 @@ class Games extends CActiveRecord
 			}
 		}
 		//сохраняем скриншоты
-		if ($this->updateScreenshots) {
-			$command = $this->dbConnection->createCommand('INSERT INTO ygs_screenshots (s_game_id, s_image, s_thumbnail) VALUES (:s_game_id, :s_image, :s_thumbnail)');
-			foreach ($this->g_screenshots as $screenshot) {
-				$command->bindParam(':s_game_id', $this->g_id, PDO::PARAM_INT);
-				$command->bindParam(':s_image', $screenshot->IMAGE, PDO::PARAM_STR);
-				$command->bindParam(':s_thumbnail', $screenshot->THUMBNAIL, PDO::PARAM_STR);
-				$command->execute();
-			}
-		}
+//		if ($this->updateScreenshots) {
+//			$command = $this->dbConnection->createCommand('INSERT INTO ygs_screenshots (s_game_id, s_image, s_thumbnail) VALUES (:s_game_id, :s_image, :s_thumbnail)');
+//			foreach ($this->g_screenshots as $screenshot) {
+//				$command->bindParam(':s_game_id', $this->g_id, PDO::PARAM_INT);
+//				$command->bindParam(':s_image', $screenshot->IMAGE, PDO::PARAM_STR);
+//				$command->bindParam(':s_thumbnail', $screenshot->THUMBNAIL, PDO::PARAM_STR);
+//				$command->execute();
+//			}
+//		}
 	}
 	
 	/**
@@ -135,13 +148,14 @@ class Games extends CActiveRecord
 	 * @return array массив с безопасными атрибутами
 	 */
 	public function safeAttributes() {
-		return array('g_id', 'g_rate', 'g_name_url', 'g_type',
-			'g_added', 'g_size', 'g_name', 'g_medium_pic',
-			'g_small_pic', 'g_download_link', 'g_shortdescr',
-			'g_fulldescr', 'g_publish_date', 'g_state', 'g_types',
-			'g_screenshots'
+		return array('g_id', 'g_rate', 'g_type',
+			'g_size', 'g_name', 'g_name_en', 'g_medium_pic',
+			'g_shortdescr','g_shortdescr_en', 'width', 'height',
+			'g_fulldescr', 'g_fulldescr_en', 'g_publish_date', 'g_state', 'g_types',
+			'g_screenshots','filename','ext'
 		);
 	}
+        
 	
 	/**
 	 * Возвращает массив с состояниями игры (черновик/опубликовано)
@@ -196,8 +210,53 @@ class Games extends CActiveRecord
 	public function scopes() {
 		return array(
 			'published'=>array(
-				'condition'=>'g_state='.self::PUBLISHED,
+			'condition'=>'g_state='.self::PUBLISHED,
 			)
 		);
 	}
+        
+        public static function actionGoogleTranslate($sourceLanguage,$language,$value2,$point=NULL) {
+        //$sourceLanguage = Yii::app()->sourceLanguage == 2 ? Yii::app()->sourceLanguage : substr(Yii::app()->sourceLanguage, 0, 2);        
+            $content = explode(".", strip_tags($value2));    
+            $res = '';
+            foreach ($content as $value) {        
+            if (is_callable('curl_init') && isset($language) && isset($value2) && $curl = curl_init()) {           
+               $cUrl = 'https://translate.google.ru/translate_a/single?client=t&sl='.trim($sourceLanguage).'&tl='.trim($language).'&dt=t&ie=UTF-8&oe=UTF-8&q='.urlencode(trim($value));
+                curl_setopt($curl, CURLOPT_URL, $cUrl);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+
+                $out = curl_exec($curl);
+                $out = explode('","', $out);
+                $out = mb_substr($out[0], 4);
+                if(trim($out) == trim($value)) {
+                    $cUrl = 'https://translate.google.ru/translate_a/single?client=t&sl=auto&tl='.trim($language).'&dt=t&ie=UTF-8&oe=UTF-8&q='.urlencode(trim($value));
+                    curl_setopt($curl, CURLOPT_URL, $cUrl);
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+                    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+
+                    $out = curl_exec($curl);
+                    $out = explode('","', $out);
+                    $out = mb_substr($out[0], 4);
+                }
+                curl_close($curl);
+                $vowels = array('ru"]','en"]');                
+                $out = str_replace($vowels, "", $out);// если ошибка , то выдаются эти куски, мы их убираем, если наприер пустое значение
+                
+                 if ((stripos($out, '!') === false) and (stripos($out, '?') === false)) // не ставим точку, если ? или !
+                    $res = $res . $out . ".";
+                 else 
+                    $res = $res . $out;
+            }    
+            }
+
+        if (isset($point))
+        return substr($res, 0, strlen($res)-1); // убирать в конце точку
+        else 
+        return $res;
+        }
+
+        
 }

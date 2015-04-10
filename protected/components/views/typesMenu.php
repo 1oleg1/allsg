@@ -1,5 +1,5 @@
-<h2>Жанры</h2>
-<ul>
+<div class="spanh2">Жанры</div>
+<ul class="typesgames">
 <?php
 foreach ($types as $type) {
 	//каждый пункт списка - ссылка на страницу с играми данного жанра

@@ -26,7 +26,7 @@ class ArchiveMenu extends CWidget {
 		//в результате выполнения этого зарпоса мы получим список
 		//всех месяцев в которых была опубликована хотябы одна игра
 		//(и количество этих игр)
-		$sql = 'SELECT YEAR( g_added ) AS year, MONTH( g_added ) AS month ,'
+		$sql = 'SELECT YEAR( g_publish_date ) AS year, MONTH( g_publish_date ) AS month ,'
 			.' COUNT( g_name ) AS games_count '
 			.' FROM ygs_games'
 			.' WHERE g_state=0'

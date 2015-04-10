@@ -21,8 +21,15 @@ class GamesController extends CController
 	
 	//массив с полным переченем жанров 
 	private $_allTypes = array();
-	
-	//массив с названиями месяцев
+        
+        public $_name_rus = "";
+        public $_name_eng = "";
+        public $_shortdescr_rus = "";
+        public $_shortdescr_eng = "";
+        public $_fulldescr_rus = "";
+        public $_fulldescr_eng = "";
+
+        //массив с названиями месяцев
 	private $monthNames = array(
 			'1'=>'Январь',
 			'2'=>'Февраль',
@@ -41,8 +48,7 @@ class GamesController extends CController
 	/**
 	 * @return array action filters
 	 */
-	public function filters()
-	{
+	public function filters(){
 		return array(
 			'accessControl', // perform access control for CRUD operations
 		);
@@ -63,7 +69,7 @@ class GamesController extends CController
 				'users'=>array('*'),
 			),
 			array('allow', // для администратора (убрали из списка 'create', т.о. заблокировали эту операцию)
-				'actions'=>array('update'),
+				'actions'=>array('update','create'),
 				'users'=>array('@'),
 			),
 			array('allow', // для администратора
@@ -100,16 +106,46 @@ class GamesController extends CController
 	 */
 	public function actionCreate()
 	{
+                $cs = Yii::app()->clientScript;
+		//подключаем редактор tinyMce для 'class'=>'editme'
+		$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/tiny_mce/tiny_mce_gzip.js', CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/tiny_mce/init_gz.js' ,CClientScript::POS_END);
+		$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/tiny_mce/init_editor.js' ,CClientScript::POS_END);
+
 		$model=new Games;
-		if(isset($_POST['Games']))
-		{
+
+		if(isset($_POST['Games'])){
+                        //Полю icon присвоить значения поля формы icon
+			$model->icon=CUploadedFile::getInstance($model,'icon');
+                        $model->filename2=CUploadedFile::getInstance($model,'filename2');
+                        if ($model->icon){
+				$sourcePath = pathinfo($model->icon->getName());	
+				$fileName = '/games/images/'.date('Y').'/'.'img_'.$model->g_publish_date.rand().'.'.$sourcePath['extension'];
+				$model->g_medium_pic = $fileName;
+			}
+                        // Присваиваем файл и записываем в базу
+			if ($model->filename2){
+				$sourcePath = pathinfo($model->filename2->getName());			
+				$fileName2 = '/games/files/'.date('Y').'/'.$model->g_publish_date.rand().'.'.$sourcePath['extension'];
+				$model->filename = $fileName2;
+			}                        
 			$model->attributes=$_POST['Games'];
 			$model->g_types=$_POST['types'];
 			$model->g_type = $this->_encodeTypes();
-			if($model->save())
+			if($model->save()){	                         	
+				if ($model->icon){ //Если поле загрузки файла не было пустым, то сохранить файл на сервере в каталог           
+					$file = $_SERVER['DOCUMENT_ROOT'].$fileName;
+					$model->icon->saveAs($file); // записываем картинку                                                                                                                                                                
+				}
+                                if ($model->filename2){  
+                                        $file2 = $_SERVER['DOCUMENT_ROOT'].$fileName2;
+                                        $model->filename2->saveAs($file2);
+                                }                                 
 				$this->redirect(array('show','id'=>$model->g_id));
+                        }
 		}
-		$this->render('create',array('model'=>$model));
+		//$this->render('create',array('model'=>$model));
+                $this->render('create',array('model'=>$model, 'types'=>$types));                
 	}
 
 	/**
@@ -118,14 +154,45 @@ class GamesController extends CController
 	public function actionUpdate()
 	{
 		$cs = Yii::app()->clientScript;
-		//подключаем редактор tinyMce для всех textarea
+		//подключаем редактор tinyMce для 'class'=>'editme'
 		$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/tiny_mce/tiny_mce_gzip.js', CClientScript::POS_END);
 		$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/tiny_mce/init_gz.js' ,CClientScript::POS_END);
 		$cs->registerScriptFile(Yii::app()->request->baseUrl.'/js/tiny_mce/init_editor.js' ,CClientScript::POS_END);
 		//получаем данные игры из базы
 		$model=$this->loadGames();
-		//получаем список жанров
-		$types = Types::model()->findAll();
+                //$model->attributes['g_fulldescr'] = "sss";
+                //$model->g_fulldescr_en = "sss";
+                $red5 = "<span style='color: green; font-size: 10px; font-weight: bold;'>Онлайн перевод</span><br />";
+                //---------------------
+                if (empty($model->g_name_en)){ // перевод с русского на английский                
+                    $model->g_name_en = Games::actionGoogleTranslate('ru','en',$model->g_name,1);
+                    $this->_name_eng = $red5;
+                }
+                if (empty($model->g_name)){ // перевод английского на русский
+                    $model->g_name = Games::actionGoogleTranslate('en','ru',$model->g_name_en,1);
+                    $this->_name_rus = $red5;
+                }                
+                //---------------------
+                if (empty($model->g_shortdescr_en)){ // перевод полного с русского на английский                
+                    $model->g_shortdescr_en = Games::actionGoogleTranslate('ru','en',$model->g_shortdescr);
+                    $this->_shortdescr_eng = $red5;
+                }
+                if (empty($model->g_shortdescr)){ // перевод полного с английского на русский
+                    $model->g_shortdescr = Games::actionGoogleTranslate('en','ru',$model->g_shortdescr_en);
+                    $this->_shortdescr_rus = $red5;
+                }                
+                //---------------------
+                if (empty($model->g_fulldescr_en)){ // перевод полного с русского на английский                
+                    $model->g_fulldescr_en = Games::actionGoogleTranslate('ru','en',$model->g_fulldescr);
+                    $this->_fulldescr_eng = $red5;
+                }
+                if (empty($model->g_fulldescr)){ // перевод полного с английского на русский
+                    $model->g_fulldescr = Games::actionGoogleTranslate('en','ru',$model->g_fulldescr_en);
+                    $this->_fulldescr_rus = $red5;
+                }                
+                //---------------------                
+                //получаем список жанров
+		//$types = Types::model()->findAll();
 		//если получены данные игры
 		if(isset($_POST['Games']))
 		{
@@ -138,18 +205,51 @@ class GamesController extends CController
 			//эта переменная запрещает изменение списка скриншотов игры
 			//(т.к. для удаления скриншотов используется отдельная форма)
 			$model->updateScreenshots = false;
+			$model->icon=CUploadedFile::getInstance($model,'icon');
+                        $model->filename2=CUploadedFile::getInstance($model,'filename2');
+                        // Присваиваем скриншот и записываем в базу
+			if ($model->icon){
+				$sourcePath = pathinfo($model->icon->getName());			
+				$fileName = '/games/images/'.substr($model->g_publish_date, 0, 4).'/'.'img_'.$model->g_publish_date.rand().'.'.$sourcePath['extension'];
+				$model->g_medium_pic = $fileName;
+			}
+                        // Присваиваем файл и записываем в базу
+			if ($model->filename2){
+				$sourcePath = pathinfo($model->filename2->getName());			
+				$fileName2 = '/games/files/'.substr($model->g_publish_date, 0, 4).'/'.$model->g_publish_date.rand().'.'.$sourcePath['extension'];
+				$model->filename = $fileName2;
+			}                         
 			//сохраняем игру
-			if($model->save())
-				$this->redirect(array('update','id'=>$model->g_id));
+			if($model->save()) {
+                            //Если отмечен чекбокс «удалить файл»            
+                            if($model->del_img){
+                                    if(file_exists($_SERVER['DOCUMENT_ROOT'].$model->g_medium_pic)) {//удаляем файл						
+					unlink($_SERVER['DOCUMENT_ROOT'].$model->g_medium_pic);
+					$model->g_medium_pic = '';
+                                        $model->save();
+                                    }
+                            }                            				
+                            //Если поле загрузки файла не было пустым, то            
+                            if ($model->icon){  
+				$file = $_SERVER['DOCUMENT_ROOT'].$fileName;
+				$model->icon->saveAs($file);
+                            }                                                                    
+                            if ($model->filename2){  
+				$file2 = $_SERVER['DOCUMENT_ROOT'].$fileName2;
+				$model->filename2->saveAs($file2);
+                            }                            
+			$this->redirect(array('update','id'=>$model->g_id));
+                        }
 		}
 		//если получены данные из формы удаления скриншотов
-		if (isset($_POST['screenshots'])) {
-			//удаляем выбранные скриншоты
-			foreach ($_POST['screenshots'] as $id) {
-				$s = Screenshots::model()->findByPk($id);
-				$s->delete();
-			}
-		}
+//		if (isset($_POST['screenshots'])) {
+//			//удаляем выбранные скриншоты
+//			foreach ($_POST['screenshots'] as $id) {
+//				$s = Screenshots::model()->findByPk($id);
+//				$s->delete();
+//			}
+//		}
+       
 		//показываем форму
 		$this->render('update',array('model'=>$model, 'types'=>$types));
 	}
@@ -179,7 +279,7 @@ class GamesController extends CController
 		$type = null;
 		//формируем запрос на поиск игр с сортировкой по дате
 		$criteria=new CDbCriteria;
-		$criteria->order = 'g_added DESC';
+		$criteria->order = 'g_publish_date DESC';
 		//если указан параметр type_id, нужно показывать только игры выбранного жанра
 		if (isset($_GET['type_id']) && is_numeric($_GET['type_id'])) {
 			//ищем указанный жанр
@@ -217,7 +317,7 @@ class GamesController extends CController
 		//заполняем массив с жанрами игр
 		foreach ($models as $key=>$game) {
 			$criteria=new CDbCriteria;
-			$criteria->order = 'g_added DESC';
+			$criteria->order = 'g_publish_date DESC';
 			//расшифровываем жанры игр (по коду в поле g_type)
 			$models[$key]->g_types = $this->_decodeTypes($game->g_type);
 		}
@@ -239,8 +339,8 @@ class GamesController extends CController
 		
 		//формируем запрос
 		$criteria=new CDbCriteria;
-		$criteria->order = 'g_added DESC';
-		$criteria->condition = 'YEAR(g_added)=:year AND MONTH(g_added)=:month';
+		$criteria->order = 'g_publish_date DESC';
+		$criteria->condition = 'YEAR(g_publish_date)=:year AND MONTH(g_publish_date)=:month';
 		$criteria->params = array(':year'=>$year,':month'=>$month);
 		//получаем данные для пагинации
 		$pages=new CPagination(Games::model()->published()->count($criteria));
@@ -256,7 +356,7 @@ class GamesController extends CController
 		//заполняем массив с жанрами игр
 		foreach ($models as $key=>$game) {
 			$criteria=new CDbCriteria;
-			$criteria->order = 'g_added DESC';
+			$criteria->order = 'g_publish_date DESC';
 
 			$models[$key]->g_types = $this->_decodeTypes($game->g_type);
 		}
@@ -310,11 +410,12 @@ class GamesController extends CController
 	{
 		if($this->_model===null)
 		{
-			if($id!==null || isset($_GET['id']))
+			if($id!==null || isset($_GET['id']) || !empty($_GET['id'])){
 				$this->_model=Games::model()->findbyPk($id!==null ? $id : $_GET['id']);
 				$this->_model->g_types = $this->_decodeTypes($this->_model->g_type);
-			if($this->_model===null)
-				throw new CHttpException(404,'The requested page does not exist.');
+                        } else
+//			if($this->_model===null)
+				throw new CHttpException(404,'The requested page does not exist2.');
 		}
 		return $this->_model;
 	}
@@ -372,7 +473,6 @@ class GamesController extends CController
 					$newGame->g_name = $game->NAME;
 					$newGame->g_medium_pic = $game->MEDIUM_PIC;
 					$newGame->g_small_pic = $game->SMALL_PIC;
-					$newGame->g_download_link = $game->DOWNLOAD_LINK;
 					$newGame->g_shortdescr = $game->SHORTDESCR;
 					$newGame->g_fulldescr = $game->FULLDESCR;
 					$newGame->g_publish_date = date('Y-m-d', time());
@@ -441,4 +541,12 @@ class GamesController extends CController
 		}
 		return $res;
 	}
+
+        public function material_image($id, $title, $image, $width='150', $class='material_img'){
+            if(isset($image) && file_exists($_SERVER['DOCUMENT_ROOT'].$image))
+		return CHtml::image($image, $title,array('width'=>$width,'class'=>$class,));
+            else
+		return CHtml::image('/images/no_image.jpg','Нет картинки',array('width'=>$width,'class'=>$class));
+	}        
+        
 }

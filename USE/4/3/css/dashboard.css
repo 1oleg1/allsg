@@ -1,0 +1,147 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: #e2ebbc;
+	color: #004f00;
+}
+
+a {
+	color: #03646a;
+}
+
+a:hover {
+	color: #003900;
+}
+
+#page {
+	background-color: #86cd65;
+}
+
+#header {
+	height: 50px;
+}
+
+#logo {
+	font-size: 1.4em;
+	margin: 10px 0 10px 20px;
+}
+
+#sidebar {
+	background-color: #e2ebbc;
+	font-size: 1.1em;
+}
+
+#sidebar ul {
+	margin: 0;
+	list-style: none;
+	border-top: solid 1px #108906;
+	border-left: solid 1px #108906;
+}
+
+#sidebar ul li {
+	border-right: solid 1px #108906;
+	border-bottom: solid 1px #108906;
+	margin: 0;
+	padding: 5px 0 5px 15px;
+}
+
+#sidebar ul li ul {
+	list-style-type: circle;
+	border: none;
+	margin-left: 10px;
+}
+
+#sidebar ul li ul li {
+	border: none;
+}
+
+#sidebar ul li a {
+	display: block;
+}
+
+#content {
+	background-color: #e2ebbc;
+	border: solid 1px #108906;
+	font-size: 1.1em;
+}
+
+#content h1 {
+	padding: 10px 15px 10px 15px;
+	font-size: 1.2em;
+	text-align: center;
+	padding: 10px 0 10px 0;
+	margin-bottom: 0;
+}
+
+#content div.yiiForm {
+	padding: 10px 15px 10px 15px;
+}
+
+#content div.yiiForm label {
+	font-weight: bold;
+	display: block;
+	margin-top: 5px;
+}
+
+#content div.yiiForm input#LoginForm_rememberMe {
+	float: left;
+}
+
+#content table.dataGrid {
+	width: 95%;
+	font-size: 0.9em;
+	border-top: solid 1px #cecece;
+	border-left: solid 1px #cecece;
+}
+
+#content table.dataGrid th {
+	padding: 3px;
+	border-bottom: solid 1px #cecece;
+	border-right: solid 1px #cecece;
+}
+
+#content table.dataGrid td {
+	padding: 3px;
+	border-bottom: solid 1px #cecece;
+	border-right: solid 1px #cecece;
+}
+
+#content ul.yiiPager li {
+	margin-left: 0;
+}
+
+#content div.importForm {
+	padding: 15px;
+}
+
+#content div.types_list input {
+	float:left;
+}
+
+#content div.types_list label {
+	margin-top: 0;
+	font-weight: normal;
+}
+
+#content #screenshots_form input {
+	float: left;
+}
+
+#content .action {
+	margin: 10px;
+}
+
+#content h2 {
+	font-size: 1.4em;
+	padding: 10px;
+	margin: 0;
+}
+
+#content div.actionBar {
+	padding: 10px;
+}
+
+#footer {
+	text-align: center;
+	padding: 10px 0 10px 0;
+}

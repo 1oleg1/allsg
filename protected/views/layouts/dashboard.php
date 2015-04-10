@@ -7,6 +7,22 @@
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/text.css'); ?>
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/960.css'); ?>
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/dashboard.css'); ?>
+
+<?
+$scriptPosition = CClientScript::POS_HEAD;
+$baseUrl = Yii::app()->baseUrl;
+$cs = Yii::app()->getClientScript();
+$cs->registerCssFile('/css/bootstrap.css');
+$cs->registerCssFile('/css/bootstrap-yii.css');
+$cs->registerScriptFile('/js/bootstrap.min.js', $scriptPosition);
+?>
+<?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/bootstrap-theme.css'); ?>
+<?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/bootstrap-responsive.css'); ?>
+<?php //echo CHtml::cssFile(Yii::app()->baseUrl.'/css/bootstrap-editable.css'); ?>
+<?php //echo CHtml::cssFile(Yii::app()->baseUrl.'/css/tstranslation.css'); ?>
+<?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/custom.css'); ?>
+
+
 <title><?php echo $this->pageTitle; ?></title>
 </head>
 
@@ -18,7 +34,7 @@
 </div><!-- header -->
 
 <div id="sidebar" class="grid_4">
-<?php $this->widget('application.components.dashboardMenu'); ?>
+<?php $this->widget('application.components.DashboardMenu'); ?>
 </div><!-- sidebar -->
 
 <div class="grid_8">
@@ -28,10 +44,10 @@
 </div><!-- content -->
 </div>
 
+
+
 <div id="footer" class="grid_12">
-Copyright &copy; 2010 by <a href="http://www.simplecoding.org">Стаценко Владимир</a>.<br/>
-All Rights Reserved.<br/>
-<?php echo Yii::powered(); ?>
+
 <?php
 //показываем суммарные данные по использованию ресурсов
 $memory = round(Yii::getLogger()->memoryUsage/1024/1024, 3);

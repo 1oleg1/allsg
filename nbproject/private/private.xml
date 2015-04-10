@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>protected/controllers/GamesController.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>317</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
-            <file>file:/C:/OpenServer/domains/flash4me/translit-it.php</file>
+            <file>file:/C:/OpenServer/domains/allsupergames/protected/models/LoginForm.php</file>
+            <file>file:/C:/OpenServer/domains/allsupergames/protected/views/games/_form.php</file>
+            <file>file:/C:/OpenServer/domains/allsupergames/protected/controllers/GamesController.php</file>
+            <file>file:/C:/OpenServer/domains/allsupergames/protected/models/Games.php</file>
         </group>
->>>>>>> 1aaf85629a561129683dcedc153c648b79ac25d5
     </open-files>
 </project-private>

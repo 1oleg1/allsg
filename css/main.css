@@ -2,12 +2,13 @@
 
 body {
 	background-color: #83b7c2;
-	background-image: url('../images/background.png');
-	background-repeat: repeat-x;
+	background-image: url('../images/bg3.jpg');
+	background-repeat: repeat;
 }
 
 #content_container {
 	___background-image: url('../images/main_bg.png');
+    background: none repeat scroll 0 0 #E7E7E7;
 }
 
 #main_top {
@@ -28,18 +29,29 @@ body {
 }
 
 #mainmenu ul {
-	background-color: #ffffff;
-	margin: 0 10px 0px 10px;
-	padding-bottom: 10px;
+	background-color: #459CE4;
+	margin: 0;
 	list-style: none;
-	border-bottom: dashed 1px #e1e1e1;
+	border-bottom: solid 1px #e1e1e1;
+	width: 100%;
 }
 
 #mainmenu ul li {
 	display: inline;
 }
 
+.typesgames {
+    
+}
 
+.typesgames li {
+    background: none repeat scroll 0 0 #fff;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 2px 0;    
+}
+.typesgames li:hover {
+    background-color: #3366FF;
+}
 .typemenu a {
     background: url("../images/igry-nav.png") no-repeat scroll 6px 0 rgba(0, 0, 0, 0);
     color: #000;
@@ -49,11 +61,11 @@ body {
     line-height: 32px;
     padding: 0 10px 0 44px;
     text-decoration: none;
-    width: 166px;    
+    ___width: 166px;    
 }
 
-.typemenu a:hover {
-    background-color: #6dc4f6;
+#sidebar div.menu ul li a:hover {
+    ___background-color: #6dc4f6;
     color: #fff;
     }
 
@@ -159,19 +171,22 @@ body {
 
 #mainmenu ul li a {
 	text-decoration: none;
-	color: #538a25;
+	color: #fff;
 	font-size: 1.2em;
 }
 
 #mainmenu ul li a:hover {
-	color: #57747c;
-	text-decoration: underline;
+    background-position: 0 0px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) inset, 0 5px 7px rgba(0, 0, 0, 0.25);
+    outline: 0 none;
+
 }
 
 #main_block {
 	background-color: #dbeaef;
     float: left;
     position: relative;
+    margin: 5px 0;
 }
 
 #top_games, #content {
@@ -302,26 +317,65 @@ div.game_full div#screenshots a img {
 }
 
 #sidebar {
-	background-color:#FFFFFF;
+	___background-color:#FFFFFF;
+    margin: 5px;
 }
 
 #sidebar div.menu {
 	
 }
 
+
+#sidebar div.menu .spanh2 {
+background: none repeat scroll 0 0 #459ce4;
+border-radius: 3px 3px 0 0;
+color: #fff;
+font-size: 14px;
+font-weight: bold;
+height: 36px;
+line-height: 36px;
+text-align: center;
+text-shadow: 0 1px 1px #222222;
+width: 220px;
+margin: 0px;
+}
+
+
+
 #sidebar div.menu h2 {
-	background-image: url('../images/list_title.png');
-	background-repeat: no-repeat;
-	font-size: 1.1em;
-	color: #5b6567;
-	height: 50px;
-	padding: 15px 0 0 15px;
-	margin: 0;
+background: none repeat scroll 0 0 #459ce4;
+border-radius: 3px 3px 0 0;
+color: #fff;
+font-size: 14px;
+font-weight: bold;
+height: 36px;
+line-height: 36px;
+text-align: center;
+text-shadow: 0 1px 1px #222222;
+width: 220px;
+margin: 0px;
+}
+
+
+div#main_block h1 {
+background: none repeat scroll 0 0 #459ce4;
+border-radius: 3px;
+color: #fff;
+font-size: 14px;
+font-weight: bold;
+height: 36px;
+line-height: 36px;
+margin-bottom: 10px;
+padding: 0 10px;
+position: relative;
+text-shadow: 0 1px 1px #222222;
 }
 
 #sidebar div.menu ul {
 	___list-style-image: url('../images/bullet.png');
-	list-style: none;    
+	list-style: none;
+    padding: 38px 0 0 0;
+    margin: 0;    
 }
 
 #sidebar div.menu ul li {
@@ -329,13 +383,17 @@ div.game_full div#screenshots a img {
 }
 
 #sidebar div.menu ul li a {
-	color: #3a7d8e;
+	color: #0000FF;
 	text-decoration:none;
 	vertical-align: text-bottom;
+    font-family: 'Jura', arial, serif;
+    font-size: 17px;
+    font-weight: bold;
+    white-space: nowrap;        
 }
 
 #sidebar div.menu ul li a:hover {
-	text-decoration:underline;
+	___text-decoration:underline;
 }
 
 #sidebar div.menu a img {
@@ -371,7 +429,7 @@ ul.yiiPager li.selected a:link {
 #footer div {
 	border-top: dashed 1px #e1e1e1;	
 	background-color: #ffffff;
-	margin: 0 10px 0px 10px;
+	___margin: 0 10px 0px 10px;
 	padding-top: 10px;
 }
 
@@ -379,3 +437,29 @@ ul.yiiPager li.selected a:link {
     
 }
 
+.ddmenu li {
+    margin: 5px;    
+}
+
+#yw2 li {
+    margin: 0px;
+}
+
+#yw2 ul {
+    border: none;
+}
+
+#yw2 {
+    border: 0 none;
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+
+.navbar {
+    position: relative;
+}
+
+#mainmenu .navbar {
+    margin: 0px;
+}

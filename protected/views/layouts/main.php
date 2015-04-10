@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="language" content="en" />
@@ -7,24 +7,41 @@
 <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+<title><?php echo CHtml::encode($this->pageTitle); ?> | <?php echo Yii::app()->name; ?></title>
+<?if (!empty($this->description)) {?>
+<meta name="description" content="<?= CHtml::encode($this->description); ?>" />
+<? } ?>
+ 
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/reset.css'); ?>
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/text.css'); ?>
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/960.css'); ?>
 <?php echo CHtml::cssFile(Yii::app()->baseUrl.'/css/main.css'); ?>
-<?php Yii::app()->bootstrap->register(); ?>
-<title><?php echo $this->pageTitle; ?></title>
+<link href='http://fonts.googleapis.com/css?family=Jura&subset=cyrillic,latin' rel='stylesheet' type='text/css'></link>
+<?
+$scriptPosition = CClientScript::POS_HEAD;
+$baseUrl = Yii::app()->baseUrl;
+$cs = Yii::app()->getClientScript();
+$cs->registerCssFile('/css/bootstrap.css');
+$cs->registerCssFile('/css/bootstrap-yii.css');
+$cs->registerCssFile('/css/bootstrap-theme.css');
+$cs->registerCssFile('/css/bootstrap-responsive.css');
+$cs->registerCssFile('/css/custom.css');
+$cs->registerScriptFile('/js/bootstrap.min.js', $scriptPosition);
+?>
+<?php //echo CHtml::cssFile(Yii::app()->baseUrl.'/css/bootstrap-editable.css'); ?>
+<?php //echo CHtml::cssFile(Yii::app()->baseUrl.'/css/tstranslation.css'); ?>
 </head>
 
 <body>
+<? // echo Yii::app()->request->userHostAddress; ?>
+
 <div id="page" class="container_12">
 
 <div id="header" class="grid_12">
 <div id="logo">
 <?php 
 $img = CHtml::image(Yii::app()->baseUrl.'/images/header.png', Yii::app()->name);
-
 //echo CHtml::link($img, Yii::app()->homeUrl);
-
 ?></div>
 </div><!-- header -->
 
@@ -32,6 +49,7 @@ $img = CHtml::image(Yii::app()->baseUrl.'/images/header.png', Yii::app()->name);
 
 <div id="mainmenu" class="grid_12">
 <?php $this->widget('application.components.TopMenu'); ?>
+
 </div><!-- mainmenu -->
 
 <div id="content_container" class="grid_12">
@@ -41,6 +59,7 @@ $img = CHtml::image(Yii::app()->baseUrl.'/images/header.png', Yii::app()->name);
 <div class="menu typemenu">
 <?php $this->widget('application.components.TypesMenu'); ?>
 </div><!-- menu -->
+<? /*
 <div class="menu">
 <?php $this->widget('application.components.RandomScreenshots'
 	, array('count'=>2)); ?>
@@ -48,6 +67,7 @@ $img = CHtml::image(Yii::app()->baseUrl.'/images/header.png', Yii::app()->name);
 <div class="menu">
 <?php $this->widget('application.components.ArchiveMenu'); ?>
 </div><!-- menu -->
+*/ ?>
 </div><!-- sidebar -->
 
 
@@ -75,14 +95,17 @@ $img = CHtml::image(Yii::app()->baseUrl.'/images/header.png', Yii::app()->name);
 
 <div id="footer" class="grid_12">
 <div>
-Copyright &copy; 2014 by <a href="http://allsupergames.net">allsupergames.net</a><br/>
+Copyright &copy; <?= date("Y") ?> by <a href="http://allsupergames.net">allsupergames.net</a> | <a href="site/contact">Контакты</a><br/>
 <?php
+if (!Yii::app()->user->isGuest) {
 //показываем суммарные данные по использованию ресурсов
-$memory = round(Yii::getLogger()->memoryUsage/1024/1024, 3);
-$time = round(Yii::getLogger()->executionTime, 3);
-echo '<br />Использовано памяти: '.$memory.' МБ<br />';
-echo 'Время выполнения: '.$time.' с'
+    $memory = round(Yii::getLogger()->memoryUsage/1024/1024, 3);
+    $time = round(Yii::getLogger()->executionTime, 3);
+    echo '<br />Использовано памяти: '.$memory.' МБ<br />';
+    echo 'Время выполнения: '.$time.' с';
+}
 ?>
+<br />
 </div>
 </div><!-- footer -->
 

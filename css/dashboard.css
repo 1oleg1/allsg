@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 body {
-	background-color: #e2ebbc;
+	background-color: #CCFFFF;
 	color: #004f00;
 }
 
@@ -14,7 +14,7 @@ a:hover {
 }
 
 #page {
-	background-color: #86cd65;
+	background-color: #99CCFF;
 }
 
 #header {
@@ -83,6 +83,10 @@ a:hover {
 	margin-top: 5px;
 }
 
+#content div.yiiForm #types label:hover {
+        background-color: #66FF99;
+}
+
 #content div.yiiForm input#LoginForm_rememberMe {
 	float: left;
 }
@@ -116,11 +120,13 @@ a:hover {
 
 #content div.types_list input {
 	float:left;
+        margin: 5px;
 }
 
 #content div.types_list label {
 	margin-top: 0;
 	font-weight: normal;
+        margin-bottom: 1px;
 }
 
 #content #screenshots_form input {
@@ -145,3 +151,28 @@ a:hover {
 	text-align: center;
 	padding: 10px 0 10px 0;
 }
+
+label.span-2 {
+	margin-left: 0px;
+}
+#Games_del_img{
+	margin: 9px;
+}
+
+.imgmanager {
+    	border: 1px solid green;
+	padding:5px;
+	margin: 9px 0px;
+}
+
+.filesmanager {
+    	border: 1px solid #428bca;
+	padding:5px;
+	margin: 9px 0px;
+}
+
+.small_img {
+	float:left;
+	margin: 0 20px 0 0;
+}
+

@@ -8,7 +8,6 @@
 Игры
 <ul>
 	<li><?php echo CHtml::link('Управление', array('games/admin')); ?></li>
-	<li><?php echo CHtml::link('Импорт', array('games/import')); ?></li>
 </ul>
 </div>
 
