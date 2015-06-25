@@ -5,17 +5,12 @@
             <url>protected/controllers/GamesController.php</url>
             <bookmark id="1">
                 <name/>
-                <line>317</line>
+                <line>370</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/OpenServer/domains/allsupergames/protected/models/LoginForm.php</file>
-            <file>file:/C:/OpenServer/domains/allsupergames/protected/views/games/_form.php</file>
-            <file>file:/C:/OpenServer/domains/allsupergames/protected/controllers/GamesController.php</file>
-            <file>file:/C:/OpenServer/domains/allsupergames/protected/models/Games.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

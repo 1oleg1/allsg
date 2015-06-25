@@ -10,7 +10,7 @@ return array(
     //название сайта
     'name' => 'Детские игры',
     //язык
-    'language' => 'ru',   
+    'language' => 'en',   
     // preloading 'log' component
     'preload' => array(
      'log',
@@ -80,9 +80,9 @@ return array(
             ),
             'showScriptName' => false,
              //ELangUrlManager configuration
-            'class'=>'ELangUrlManager',
-            'languages'=>array('ru'=>'Russian','en'=>'English'), //assoziative array language => label
-            'cookieDays'=>10, //keep language 10 days
+///            'class'=>'ELangUrlManager',
+///            'languages'=>array('ru'=>'Russian','en'=>'English'), //assoziative array language => label
+///            'cookieDays'=>10, //keep language 10 days
             //'languageParam'=>'lang' //=default            
         ),
     ),
@@ -95,6 +95,7 @@ return array(
         // 'newFileMode'=>0666,
         // 'newDirMode'=>0777,
         ),
+        'admin',
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']

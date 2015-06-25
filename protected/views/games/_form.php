@@ -113,8 +113,10 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 <?php echo CHtml::activeTextField($model,'g_size'); ?>
 </div>
 <div class="simple">
-<?php echo CHtml::activeLabelEx($model,'g_rate'); ?>
-<?php echo CHtml::activeTextField($model,'g_rate'); ?>
+<?php //echo CHtml::activeLabelEx($model,'g_rate'); ?>
+<label class="required" >Рейтинг ( + и - )</label>    
+<?php echo CHtml::activeTextField($model,'g_rate',array('size'=>3,'maxlength'=>255)); ?>:
+<?php echo CHtml::activeTextField($model,'g_rate_n',array('size'=>3,'maxlength'=>255)); ?>
 </div>
 <div class="simple">
 <?php echo CHtml::activeLabelEx($model,'g_state'); ?>

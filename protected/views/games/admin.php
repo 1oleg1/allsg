@@ -15,7 +15,7 @@ $this->layout = 'dashboard';
   <tr>
     <th><?php echo $sort->link('g_id'); ?></th>
     <th><?php echo $sort->link('g_name'); ?></th>
-    <th><?php echo $sort->link('g_rate'); ?></th>
+
     <th><?php echo $sort->link('g_medium_pic'); ?></th>
     <th><?php echo $sort->link('g_state'); ?></th>
 	<th>Действия</th>
@@ -26,7 +26,7 @@ $this->layout = 'dashboard';
   <tr class="<?php echo $n%2?'even':'odd';?>">
     <td><?php echo CHtml::link($model->g_id,array('show','id'=>$model->g_id)); ?></td>
     <td><?php echo CHtml::encode($model->g_name); ?></td>
-    <td><?php echo CHtml::encode($model->g_rate); ?></td>
+
     <td><?php echo CHtml::image($model->g_medium_pic, $model->g_name); ?></td>
     <?php
     if (0 === $model->g_state) {

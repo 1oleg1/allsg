@@ -6,6 +6,7 @@ class Games extends CActiveRecord
 	 * The followings are the available columns in table 'ygs_games':
 	 * @var integer $g_id
 	 * @var integer $g_rate
+         * @var integer $g_rate_n
 	 * @var integer $filename
          * @var integer $ext 
 	 * @var integer $g_type
@@ -68,7 +69,7 @@ class Games extends CActiveRecord
 //                            'tooLarge'=>'Файл весит больше 20 MB. Пожалуйста, загрузите файл меньшего размера.',
                         ),
 			array('g_type, g_name, g_name_en, g_medium_pic, g_state', 'required'),
-			array('ext, width, height, g_id, g_rate, g_type, g_size, g_state', 'numerical', 'integerOnly'=>true),
+			array('ext,width,height,g_id,g_rate,g_rate_n,g_type,g_size,g_state','numerical','integerOnly'=>true),
 		);
 	}
 
@@ -93,7 +94,8 @@ class Games extends CActiveRecord
 			'g_id' => 'ID',
                         'ext' => 'Расширение',
                         'filename' => 'Название файла',
-			'g_rate' => 'Рейтинг',
+			'g_rate' => 'Рейтинг+',
+			'g_rate_n' => 'Рейтинг-',                    
 			'g_type' => 'Жанр',
                         'width' => 'Ширина',
                         'height' => 'Высота',
@@ -148,7 +150,7 @@ class Games extends CActiveRecord
 	 * @return array массив с безопасными атрибутами
 	 */
 	public function safeAttributes() {
-		return array('g_id', 'g_rate', 'g_type',
+		return array('g_id', 'g_rate', 'g_rate_n', 'g_type',
 			'g_size', 'g_name', 'g_name_en', 'g_medium_pic',
 			'g_shortdescr','g_shortdescr_en', 'width', 'height',
 			'g_fulldescr', 'g_fulldescr_en', 'g_publish_date', 'g_state', 'g_types',

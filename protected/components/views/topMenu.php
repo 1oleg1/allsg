@@ -20,10 +20,10 @@ foreach ($items as $item) {
 </ul>
 <?
 //a image link list with the array(language=>image,...) as first param 
-$links = Yii::app()->urlManager->getLanguageImageLinks(array('en'=>'images/flags/en.gif','ru'=>'images/flags/ru.gif'));
- foreach($links as $link) {
-       echo $link .' ';
- }
+///$links = Yii::app()->urlManager->getLanguageImageLinks(array('en'=>'images/flags/en.gif','ru'=>'images/flags/ru.gif'));
+/// foreach($links as $link) {
+///       echo $link .' ';
+/// }
 ?>
 
 

@@ -34,7 +34,8 @@ class Types extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('t_name','length','max'=>250),
+                        array('description_en,description,description_site,description_en_site','safe'),
+			array('t_name,t_name_en','length','max'=>250),
 			array('t_id', 'required'),
 			array('t_id', 'numerical', 'integerOnly'=>true),
 		);
@@ -57,11 +58,17 @@ class Types extends CActiveRecord
 	{
 		return array(
 			't_id' => 'Id жанра',
-			't_name' => 'Жанр',
+			't_name' => 'Жанр(RU)',
+                    	't_name' => 'Жанр(EN)',
+                    	'description' => 'Описание SEO(RU)',
+                    	'description_en' => 'Описание SEO(EN)',                    
+                    	'description_site' => 'Описание на страницу(RU)',
+                    	'description_en_site' => 'Описание на страницу(EN)',                                        
 		);
 	}
 	
 	public function safeAttributes() {
-		return array('t_id', 't_name');
+		return array('t_id', 't_name','t_name_en','description',
+                             'description_en','description_site','description_en_site');
 	}
 }

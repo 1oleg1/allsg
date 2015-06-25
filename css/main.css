@@ -2,7 +2,7 @@
 
 body {
 	background-color: #83b7c2;
-	background-image: url('../images/bg3.jpg');
+	___background-image: url('../images/bg3.jpg');
 	background-repeat: repeat;
 }
 
